@@ -20,34 +20,55 @@ function PaixLogo() {
   );
 }
 
-const revenueItems = [
-  { href: "/revenue-cycle", label: "Optimize Revenue Cycle", desc: "End-to-end RCM solutions" },
-  { href: "/revenue-cycle", label: "Comprehensive Services", desc: "Front, mid & back-end billing" },
-  { href: "/revenue-cycle", label: "Automation & Analytics", desc: "AI-driven insights & reporting" },
-  { href: "/revenue-cycle", label: "Case Study", desc: "Client success stories" },
+const revenueCycleItems = [
+  {
+    href: "/revenue-cycle",
+    label: "Services",
+    desc: "End-to-end revenue cycle management solutions",
+    icon: "⚡",
+  },
+  {
+    href: "/education",
+    label: "Education",
+    desc: "Expert healthcare training & certification programs",
+    icon: "🎓",
+  },
 ];
 
 const clinicalItems = [
-  { href: "/clinical", label: "Clinical EHR", desc: "Streamlined documentation" },
-  { href: "/clinical", label: "Clinical Healthcare", desc: "Integrated care workflows" },
-  { href: "/mobile", label: "Mobile Platform", desc: "Provider & patient mobile apps" },
-  { href: "/mobile", label: "Mobile Healthcare", desc: "Connected care on the go" },
+  {
+    href: "/clinical",
+    label: "Clinical EHR",
+    desc: "Intuitive EHR that streamlines clinical documentation",
+    icon: "🏥",
+  },
+  {
+    href: "/mobile",
+    label: "Mobile Platform",
+    desc: "Connected mobile experiences for providers & patients",
+    icon: "📱",
+  },
 ];
 
-function DropdownMenu({ items, onClose }: { items: typeof revenueItems; onClose: () => void }) {
+type DropdownItem = typeof revenueCycleItems[number];
+
+function DropdownMenu({ items, onClose }: { items: DropdownItem[]; onClose: () => void }) {
   return (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 rounded-2xl border border-white/10 bg-[#0a0f2e]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(0,212,255,0.05)] overflow-hidden z-50">
+    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-2xl border border-white/10 bg-[#060c20]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_40px_rgba(0,212,255,0.06)] overflow-hidden z-50">
       <div className="p-2">
         {items.map((item) => (
           <Link
             key={item.label}
             href={item.href}
             onClick={onClose}
-            className="block px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
+            className="flex items-start gap-3 px-4 py-3.5 rounded-xl hover:bg-white/5 transition-colors group cursor-pointer"
             data-testid={`nav-dropdown-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
           >
-            <div className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{item.label}</div>
-            <div className="text-xs text-muted-foreground mt-0.5">{item.desc}</div>
+            <span className="text-lg mt-0.5 opacity-70">{item.icon}</span>
+            <div>
+              <div className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-none mb-1">{item.label}</div>
+              <div className="text-xs text-muted-foreground leading-snug">{item.desc}</div>
+            </div>
           </Link>
         ))}
       </div>
@@ -76,11 +97,11 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const toggle = (name: string) => setActiveDropdown(prev => prev === name ? null : name);
+  const toggle = (name: string) =>
+    setActiveDropdown((prev) => (prev === name ? null : name));
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 px-4">
-      {/* Pill Nav Container */}
       <div
         ref={dropdownRef}
         className="relative w-full max-w-4xl rounded-full border border-white/10 bg-[#0a0f2e]/80 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(0,212,255,0.05)] flex items-center justify-between px-4 h-14"
@@ -91,8 +112,8 @@ export function Navbar() {
           <span className="font-bold text-lg tracking-tight text-foreground">PAIX</span>
         </Link>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-0.5">
           <Link
             href="/"
             className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-full hover:bg-white/5 transition-all"
@@ -101,7 +122,7 @@ export function Navbar() {
             Home
           </Link>
 
-          {/* Revenue Cycle Dropdown */}
+          {/* Revenue Cycle dropdown */}
           <div className="relative">
             <button
               onClick={() => toggle("revenue")}
@@ -114,14 +135,19 @@ export function Navbar() {
               data-testid="nav-revenue-cycle"
             >
               Revenue Cycle
-              <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", activeDropdown === "revenue" && "rotate-180")} />
+              <ChevronDown
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-200",
+                  activeDropdown === "revenue" && "rotate-180"
+                )}
+              />
             </button>
             {activeDropdown === "revenue" && (
-              <DropdownMenu items={revenueItems} onClose={() => setActiveDropdown(null)} />
+              <DropdownMenu items={revenueCycleItems} onClose={() => setActiveDropdown(null)} />
             )}
           </div>
 
-          {/* Clinical Dropdown */}
+          {/* Clinical dropdown */}
           <div className="relative">
             <button
               onClick={() => toggle("clinical")}
@@ -134,7 +160,12 @@ export function Navbar() {
               data-testid="nav-clinical"
             >
               Clinical
-              <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", activeDropdown === "clinical" && "rotate-180")} />
+              <ChevronDown
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform duration-200",
+                  activeDropdown === "clinical" && "rotate-180"
+                )}
+              />
             </button>
             {activeDropdown === "clinical" && (
               <DropdownMenu items={clinicalItems} onClose={() => setActiveDropdown(null)} />
@@ -159,7 +190,7 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile toggle */}
         <button
           className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -173,11 +204,17 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-24 left-4 right-4 rounded-2xl border border-white/10 bg-[#0a0f2e]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-4 flex flex-col gap-1">
           <Link href="/" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-home">Home</Link>
-          <Link href="/revenue-cycle" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-revenue">Revenue Cycle</Link>
-          <Link href="/clinical" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-clinical">Clinical</Link>
-          <Link href="/mobile" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-mobile">Mobile Platform</Link>
-          <Link href="/education" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-education">Education</Link>
-          <Link href="/about" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-about">About Us</Link>
+
+          <div className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground/60 mt-1">Revenue Cycle</div>
+          <Link href="/revenue-cycle" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors pl-6" data-testid="nav-mobile-services">Services</Link>
+          <Link href="/education" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors pl-6" data-testid="nav-mobile-education">Education</Link>
+
+          <div className="px-4 py-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground/60 mt-1">Clinical</div>
+          <Link href="/clinical" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors pl-6" data-testid="nav-mobile-clinical-ehr">Clinical EHR</Link>
+          <Link href="/mobile" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors pl-6" data-testid="nav-mobile-mobile-platform">Mobile Platform</Link>
+
+          <Link href="/about" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors mt-1" data-testid="nav-mobile-about">About Us</Link>
+
           <div className="mt-2 pt-2 border-t border-white/10">
             <Link href="/contact" className="block w-full text-center px-4 py-3 text-sm font-semibold rounded-full border border-white/20 hover:border-primary/50 hover:text-primary transition-all" data-testid="nav-mobile-contact">
               Contact Us

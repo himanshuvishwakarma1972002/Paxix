@@ -26,7 +26,17 @@ const formSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
-export function ContactCTA() {
+interface ContactCTAProps {
+  title?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+}
+
+export function ContactCTA({
+  title = "Uncover your hidden revenue potential",
+  subtitle = "Every health system is different. Your first-pass and denial patterns are unique. Your staff challenges are specific to you. We'd like to understand your situation and show you exactly how much revenue PAIX can recover—and how fast.",
+  ctaLabel = "30 minutes with an RCM specialist",
+}: ContactCTAProps = {}) {
   const { toast } = useToast();
   const submitContact = useSubmitContact();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -91,13 +101,12 @@ export function ContactCTA() {
               <span>Let's talk</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-              Uncover your hidden <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
-                revenue potential
+                {title}
               </span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl">
-              Every health system is different. Your first-pass and denial patterns are unique. Your staff challenges are specific to you. We'd like to understand your situation and show you exactly how much revenue PAIX can recover—and how fast.
+              {subtitle}
             </p>
             
             <div className="pt-8 space-y-4">
@@ -209,7 +218,7 @@ export function ContactCTA() {
                   className="w-full group rounded-xl"
                   disabled={isSubmitting}
                 >
-                  <span className="mr-2">30 minutes with an RCM specialist</span>
+                  <span className="mr-2">{ctaLabel}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </form>
