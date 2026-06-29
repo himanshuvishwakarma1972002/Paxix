@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Activity, Shield, Users, Clock, CheckCircle2, ChevronRight, LineChart, Zap, Settings, ShieldCheck, FileSearch, Target } from "lucide-react";
+import { ContactCTA } from "@/components/layout/ContactCTA";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -630,16 +631,36 @@ export default function Home() {
       {/* Who We Serve */}
       <section className="py-24 bg-card border-t border-border">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">Who We Serve</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold mb-12"
+          >
+            Who We Serve
+          </motion.h2>
           <div className="flex flex-wrap justify-center gap-4">
             {['Hospitals', 'Health Systems', 'Community Health', 'Physician Groups'].map((group, i) => (
-              <div key={i} className="px-8 py-4 rounded-full bg-background border border-border text-foreground font-semibold shadow-sm hover:border-primary/50 transition-colors cursor-default">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="px-8 py-4 rounded-full bg-background border border-border text-foreground font-semibold shadow-sm hover:border-primary/50 hover:text-primary transition-all cursor-default"
+              >
                 {group}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      <ContactCTA
+        title="Uncover your hidden revenue potential"
+        subtitle="Every health system is different. Your first-pass and denial patterns are unique. We'd like to understand your situation and show you exactly how much revenue PAIX can recover—and how fast."
+        ctaLabel="30 minutes with an RCM specialist"
+      />
     </Layout>
   );
 }
