@@ -1,147 +1,186 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+
+function PaixLogo() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 4C16 4 10 8 6 14C4 17 4 20 6 22C8 24 11 24 14 22L16 20L18 22C21 24 24 24 26 22C28 20 28 17 26 14C22 8 16 4 16 4Z" fill="url(#logoGrad)" opacity="0.9"/>
+      <path d="M16 10L13 16L16 22L19 16L16 10Z" fill="white" opacity="0.6"/>
+      <path d="M10 18C10 18 8 16 9 13" stroke="url(#logoGrad)" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M22 18C22 18 24 16 23 13" stroke="url(#logoGrad)" strokeWidth="1.5" strokeLinecap="round"/>
+      <defs>
+        <linearGradient id="logoGrad" x1="6" y1="4" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#00d4ff"/>
+          <stop offset="100%" stopColor="#0066ff"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+const revenueItems = [
+  { href: "/revenue-cycle", label: "Optimize Revenue Cycle", desc: "End-to-end RCM solutions" },
+  { href: "/revenue-cycle", label: "Comprehensive Services", desc: "Front, mid & back-end billing" },
+  { href: "/revenue-cycle", label: "Automation & Analytics", desc: "AI-driven insights & reporting" },
+  { href: "/revenue-cycle", label: "Case Study", desc: "Client success stories" },
+];
+
+const clinicalItems = [
+  { href: "/clinical", label: "Clinical EHR", desc: "Streamlined documentation" },
+  { href: "/clinical", label: "Clinical Healthcare", desc: "Integrated care workflows" },
+  { href: "/mobile", label: "Mobile Platform", desc: "Provider & patient mobile apps" },
+  { href: "/mobile", label: "Mobile Healthcare", desc: "Connected care on the go" },
+];
+
+function DropdownMenu({ items, onClose }: { items: typeof revenueItems; onClose: () => void }) {
+  return (
+    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 rounded-2xl border border-white/10 bg-[#0a0f2e]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(0,212,255,0.05)] overflow-hidden z-50">
+      <div className="p-2">
+        {items.map((item) => (
+          <Link
+            key={item.label}
+            href={item.href}
+            onClick={onClose}
+            className="block px-4 py-3 rounded-xl hover:bg-white/5 transition-colors group"
+            data-testid={`nav-dropdown-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+          >
+            <div className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{item.label}</div>
+            <div className="text-xs text-muted-foreground mt-0.5">{item.desc}</div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [location] = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
+    setActiveDropdown(null);
   }, [location]);
 
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setActiveDropdown(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggle = (name: string) => setActiveDropdown(prev => prev === name ? null : name);
+
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md border-border shadow-sm"
-          : "bg-transparent"
-      )}
-    >
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/20 transition-colors">
-            <Zap className="h-6 w-6 text-primary" />
-          </div>
-          <span className="font-bold text-xl tracking-tight">PAIX</span>
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 px-4">
+      {/* Pill Nav Container */}
+      <div
+        ref={dropdownRef}
+        className="relative w-full max-w-4xl rounded-full border border-white/10 bg-[#0a0f2e]/80 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(0,212,255,0.05)] flex items-center justify-between px-4 h-14"
+      >
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 group shrink-0" data-testid="nav-logo">
+          <PaixLogo />
+          <span className="font-bold text-lg tracking-tight text-foreground">PAIX</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          <NavigationMenu>
-            <NavigationMenuList className="gap-2">
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent")}>
-                  <Link href="/">Home</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+        {/* Desktop Nav Links */}
+        <nav className="hidden md:flex items-center gap-1">
+          <Link
+            href="/"
+            className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-full hover:bg-white/5 transition-all"
+            data-testid="nav-home"
+          >
+            Home
+          </Link>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent">Solutions</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-popover/95 backdrop-blur-md border-border">
-                    <li className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <Link
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                          href="/revenue-cycle"
-                        >
-                          <Zap className="h-6 w-6 text-primary mb-4" />
-                          <div className="mb-2 mt-4 text-lg font-medium">
-                            Revenue Cycle
-                          </div>
-                          <p className="text-sm leading-tight text-muted-foreground">
-                            Stop revenue leakage. Turn lost revenue into recovered cash.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <Link href="/clinical" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Clinical EHR</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
-                          Intuitive clinical workflows for better care.
-                        </p>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/mobile" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Mobile Platform</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
-                          Connected mobile experiences for continuous care.
-                        </p>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/education" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Education</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2">
-                          Expert healthcare training programs.
-                        </p>
-                      </Link>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+          {/* Revenue Cycle Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => toggle("revenue")}
+              className={cn(
+                "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all",
+                activeDropdown === "revenue"
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              )}
+              data-testid="nav-revenue-cycle"
+            >
+              Revenue Cycle
+              <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", activeDropdown === "revenue" && "rotate-180")} />
+            </button>
+            {activeDropdown === "revenue" && (
+              <DropdownMenu items={revenueItems} onClose={() => setActiveDropdown(null)} />
+            )}
+          </div>
 
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent")}>
-                  <Link href="/about">About Us</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          {/* Clinical Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => toggle("clinical")}
+              className={cn(
+                "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all",
+                activeDropdown === "clinical"
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+              )}
+              data-testid="nav-clinical"
+            >
+              Clinical
+              <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", activeDropdown === "clinical" && "rotate-180")} />
+            </button>
+            {activeDropdown === "clinical" && (
+              <DropdownMenu items={clinicalItems} onClose={() => setActiveDropdown(null)} />
+            )}
+          </div>
 
-          <Link href="/contact">
-            <Button className="rounded-full shadow-[0_0_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_25px_rgba(0,255,255,0.5)] transition-shadow">
+          <Link
+            href="/about"
+            className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-full hover:bg-white/5 transition-all"
+            data-testid="nav-about"
+          >
+            About Us
+          </Link>
+        </nav>
+
+        {/* Contact CTA */}
+        <div className="hidden md:flex items-center shrink-0">
+          <Link href="/contact" data-testid="nav-contact">
+            <button className="px-5 py-2 text-sm font-semibold rounded-full border border-white/20 bg-white/5 text-foreground hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-200">
               Contact Us
-            </Button>
+            </button>
           </Link>
         </div>
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden p-2"
+          className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          data-testid="nav-mobile-toggle"
         >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border p-4 flex flex-col gap-4">
-          <Link href="/" className="px-4 py-2 hover:bg-muted rounded-md transition-colors">Home</Link>
-          <Link href="/revenue-cycle" className="px-4 py-2 hover:bg-muted rounded-md transition-colors">Revenue Cycle</Link>
-          <Link href="/clinical" className="px-4 py-2 hover:bg-muted rounded-md transition-colors">Clinical</Link>
-          <Link href="/mobile" className="px-4 py-2 hover:bg-muted rounded-md transition-colors">Mobile Platform</Link>
-          <Link href="/education" className="px-4 py-2 hover:bg-muted rounded-md transition-colors">Education</Link>
-          <Link href="/about" className="px-4 py-2 hover:bg-muted rounded-md transition-colors">About Us</Link>
-          <div className="pt-4 border-t border-border">
-            <Link href="/contact" className="w-full block">
-              <Button className="w-full">Contact Us</Button>
+        <div className="md:hidden absolute top-24 left-4 right-4 rounded-2xl border border-white/10 bg-[#0a0f2e]/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-4 flex flex-col gap-1">
+          <Link href="/" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-home">Home</Link>
+          <Link href="/revenue-cycle" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-revenue">Revenue Cycle</Link>
+          <Link href="/clinical" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-clinical">Clinical</Link>
+          <Link href="/mobile" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-mobile">Mobile Platform</Link>
+          <Link href="/education" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-education">Education</Link>
+          <Link href="/about" className="px-4 py-3 text-sm font-medium hover:bg-white/5 rounded-xl transition-colors" data-testid="nav-mobile-about">About Us</Link>
+          <div className="mt-2 pt-2 border-t border-white/10">
+            <Link href="/contact" className="block w-full text-center px-4 py-3 text-sm font-semibold rounded-full border border-white/20 hover:border-primary/50 hover:text-primary transition-all" data-testid="nav-mobile-contact">
+              Contact Us
             </Link>
           </div>
         </div>

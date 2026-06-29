@@ -1,7 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowRight, Activity, Shield, Users, Clock, CheckCircle2, ChevronRight, BarChart3, LineChart, Globe, Zap, Settings, ShieldCheck, FileSearch, Target } from "lucide-react";
+import { ArrowRight, Activity, Shield, Users, Clock, CheckCircle2, ChevronRight, LineChart, Zap, Settings, ShieldCheck, FileSearch, Target } from "lucide-react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,48 +13,260 @@ const stats = [
   { value: "100%", label: "Client Retention" },
 ];
 
+function HeroGraphic() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Base gradient wash */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_40%,rgba(0,80,160,0.35)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_85%_20%,rgba(0,212,255,0.12)_0%,transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_60%_70%,rgba(0,40,120,0.3)_0%,transparent_70%)]" />
+
+      {/* Glow orbs */}
+      <motion.div
+        className="absolute top-16 right-24 w-80 h-80 rounded-full"
+        style={{ background: "radial-gradient(circle, rgba(0,212,255,0.18) 0%, transparent 70%)" }}
+        animate={{ scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-10 right-10 w-64 h-64 rounded-full"
+        style={{ background: "radial-gradient(circle, rgba(0,80,255,0.15) 0%, transparent 70%)" }}
+        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      />
+
+      {/* SVG — DNA helix + bird silhouette */}
+      <svg
+        className="absolute right-0 top-0 h-full w-[55%] max-w-3xl opacity-70"
+        viewBox="0 0 600 700"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <defs>
+          <linearGradient id="helixGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#00d4ff" stopOpacity="0.9"/>
+            <stop offset="100%" stopColor="#0044cc" stopOpacity="0.4"/>
+          </linearGradient>
+          <linearGradient id="helixGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#0066ff" stopOpacity="0.6"/>
+            <stop offset="100%" stopColor="#00d4ff" stopOpacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="birdGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1a3080" stopOpacity="0.7"/>
+            <stop offset="100%" stopColor="#0a1a50" stopOpacity="0.4"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="softGlow">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Bird / dove silhouette */}
+        <g opacity="0.55">
+          <path d="M420 60 C380 80 320 100 280 140 C260 160 255 180 270 195 C285 210 310 205 330 190 C350 175 365 155 380 140 C420 105 470 95 510 80 C530 72 545 60 540 45 C535 30 500 35 480 40 C460 45 440 55 420 60Z" fill="url(#birdGrad)" />
+          <path d="M310 195 C290 220 275 250 270 280 C268 295 272 310 280 318 C295 330 315 325 325 310 C340 290 340 265 335 245 C330 225 320 210 310 195Z" fill="url(#birdGrad)" opacity="0.7"/>
+          <path d="M270 195 C240 185 210 175 185 165 C160 155 140 145 135 130 C130 115 145 100 165 95 C185 90 210 95 230 105 C250 115 260 130 270 145 C280 160 280 180 270 195Z" fill="url(#birdGrad)" opacity="0.8"/>
+          {/* Wing detail strokes */}
+          <path d="M280 140 C310 125 345 115 375 105" stroke="rgba(0,150,220,0.35)" strokeWidth="1.5" strokeLinecap="round"/>
+          <path d="M270 160 C300 148 335 140 365 132" stroke="rgba(0,150,220,0.25)" strokeWidth="1" strokeLinecap="round"/>
+          <path d="M280 175 C305 165 330 158 355 152" stroke="rgba(0,150,220,0.2)" strokeWidth="1" strokeLinecap="round"/>
+          {/* Leaf/branch at top right of wing */}
+          <path d="M510 80 C525 68 540 60 550 50 C555 44 555 36 548 33" stroke="rgba(0,180,255,0.4)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+          <path d="M530 62 C538 55 545 50 550 43" stroke="rgba(0,180,255,0.3)" strokeWidth="1" strokeLinecap="round" fill="none"/>
+          <circle cx="550" cy="32" r="3" fill="rgba(0,212,255,0.4)"/>
+        </g>
+
+        {/* DNA Helix — strand 1 (teal) */}
+        <motion.path
+          d="M380 200 C400 230 410 260 395 290 C380 320 360 340 355 370 C350 400 360 430 375 460 C390 490 400 520 385 550 C370 580 350 600 345 630"
+          stroke="url(#helixGrad1)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          filter="url(#glow)"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2.5, ease: "easeInOut", delay: 0.3 }}
+        />
+
+        {/* DNA Helix — strand 2 (blue) */}
+        <motion.path
+          d="M440 200 C420 230 410 260 425 290 C440 320 460 340 465 370 C470 400 460 430 445 460 C430 490 420 520 435 550 C450 580 470 600 475 630"
+          stroke="url(#helixGrad2)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          filter="url(#glow)"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2.5, ease: "easeInOut", delay: 0.5 }}
+        />
+
+        {/* DNA Helix — cross-links */}
+        {[230, 265, 300, 335, 370, 405, 440, 475, 510, 545, 580, 615].map((y, i) => {
+          const t = (y - 200) / 430;
+          const mid = 410;
+          const spread = 28 * Math.sin(Math.PI * t * 6);
+          const x1 = mid - 30 - spread;
+          const x2 = mid + 30 + spread;
+          return (
+            <motion.line
+              key={i}
+              x1={x1} y1={y} x2={x2} y2={y}
+              stroke={i % 2 === 0 ? "rgba(0,212,255,0.5)" : "rgba(0,100,220,0.35)"}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.4, delay: 0.8 + i * 0.08 }}
+              style={{ transformOrigin: `${mid}px ${y}px` }}
+            />
+          );
+        })}
+
+        {/* Glowing nodes on helix */}
+        {[240, 300, 360, 420, 480, 540].map((y, i) => (
+          <motion.circle
+            key={i}
+            cx={i % 2 === 0 ? 375 : 445}
+            cy={y}
+            r="4"
+            fill={i % 2 === 0 ? "rgba(0,212,255,0.9)" : "rgba(0,100,255,0.8)"}
+            filter="url(#softGlow)"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: [0.6, 1, 0.6], scale: 1 }}
+            transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+          />
+        ))}
+
+        {/* Ambient particle dots */}
+        {[
+          [200, 250], [500, 180], [170, 450], [530, 380], [220, 580], [490, 520],
+          [160, 320], [550, 280], [310, 230], [470, 600],
+        ].map(([cx, cy], i) => (
+          <motion.circle
+            key={i}
+            cx={cx} cy={cy} r={i % 3 === 0 ? 2.5 : 1.5}
+            fill="rgba(0,212,255,0.6)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0.2, 0.8, 0.2] }}
+            transition={{ duration: 3 + i * 0.5, repeat: Infinity, delay: i * 0.4 }}
+          />
+        ))}
+
+        {/* Flowing curved lines for depth */}
+        <motion.path
+          d="M150 350 C220 300 310 310 380 280"
+          stroke="rgba(0,100,200,0.2)"
+          strokeWidth="1"
+          fill="none"
+          strokeDasharray="4 6"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3, delay: 1 }}
+        />
+        <motion.path
+          d="M140 480 C230 430 340 440 420 400"
+          stroke="rgba(0,150,220,0.15)"
+          strokeWidth="1"
+          fill="none"
+          strokeDasharray="4 8"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3, delay: 1.5 }}
+        />
+
+        {/* Bright edge glow on right */}
+        <ellipse cx="570" cy="350" rx="60" ry="180" fill="rgba(0,180,255,0.06)" filter="url(#softGlow)"/>
+      </svg>
+
+      {/* Scan line effect */}
+      <motion.div
+        className="absolute right-0 top-0 w-[55%] h-full pointer-events-none"
+        style={{
+          background: "linear-gradient(180deg, transparent 0%, rgba(0,212,255,0.03) 50%, transparent 100%)",
+          backgroundSize: "100% 4px",
+        }}
+      />
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,255,255,0.15)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,100,255,0.1)_0%,transparent_40%)]" />
+      <section className="relative pt-36 pb-20 md:pt-52 md:pb-32 overflow-hidden min-h-[85vh] flex items-center">
+        <HeroGraphic />
+
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
+          <div className="max-w-2xl lg:max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6"
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-8"
             >
-              Intelligence that <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
-                Simplifies
-              </span> care
-            </motion.h1>
-            <motion.p 
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              Hospital-Grade Intelligence Platform
+            </motion.div>
+
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl leading-relaxed"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] mb-6"
+            >
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d4ff] via-[#0099ff] to-[#4466ff]">Intelligence</span>{" "}
+              <span className="text-foreground">that</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d4ff] via-[#0099ff] to-[#4466ff]">Simplifies</span>{" "}
+              <span className="text-foreground">care</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-base md:text-lg text-muted-foreground mb-10 max-w-xl leading-relaxed"
             >
               Hospitals rely on people, processes, and systems that are constantly challenged to stay in sync. PAIX brings them together with hospital-grade intelligence, turning operational complexity into time, revenue, and capacity so teams can focus on better care.
             </motion.p>
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-wrap gap-4"
             >
               <Link href="/contact">
-                <Button size="lg" className="rounded-full shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] transition-all h-14 px-8 text-lg group">
+                <Button
+                  size="lg"
+                  className="rounded-full bg-primary text-primary-foreground shadow-[0_0_25px_rgba(0,212,255,0.4)] hover:shadow-[0_0_40px_rgba(0,212,255,0.6)] transition-all h-13 px-8 text-base font-semibold group"
+                  data-testid="hero-cta-primary"
+                >
                   Schedule a Discovery Session
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/about">
-                <Button size="lg" variant="outline" className="rounded-full h-14 px-8 text-lg border-border hover:bg-white/5">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full h-13 px-8 text-base border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/25"
+                  data-testid="hero-cta-secondary"
+                >
                   Learn More
                 </Button>
               </Link>
