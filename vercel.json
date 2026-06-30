@@ -1,6 +1,5 @@
 {
   "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @workspace/paix-website run build",
-  "devCommand": "pnpm --filter @workspace/paix-website run dev"
+  "buildCommand": "pnpm run build",
+  "devCommand": "pnpm run dev"
 }
-
