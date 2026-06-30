@@ -1,19 +1,18 @@
+"use client";
+
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AnimatePresence, motion } from "framer-motion";
-import NotFound from "@/pages/not-found";
+import NotFound from "@/site-pages/not-found";
 
-import Home from "@/pages/Home";
-import RevenueCycle from "@/pages/RevenueCycle";
-import Clinical from "@/pages/Clinical";
-import About from "@/pages/About";
-import Education from "@/pages/Education";
-import Mobile from "@/pages/Mobile";
-import Contact from "@/pages/Contact";
-
-const queryClient = new QueryClient();
+import Home from "@/site-pages/Home";
+import RevenueCycle from "@/site-pages/RevenueCycle";
+import Clinical from "@/site-pages/Clinical";
+import About from "@/site-pages/About";
+import Education from "@/site-pages/Education";
+import Mobile from "@/site-pages/Mobile";
+import Contact from "@/site-pages/Contact";
 
 const pageTransition = {
   initial: { opacity: 0, y: 6 },
@@ -50,14 +49,12 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <TooltipProvider>
+      <WouterRouter>
+        <Router />
+      </WouterRouter>
+      <Toaster />
+    </TooltipProvider>
   );
 }
 

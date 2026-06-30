@@ -13,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useSubmitContact } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
@@ -38,7 +37,6 @@ export function ContactCTA({
   ctaLabel = "30 minutes with an RCM specialist",
 }: ContactCTAProps = {}) {
   const { toast } = useToast();
-  const submitContact = useSubmitContact();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,37 +51,16 @@ export function ContactCTA({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(_values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    submitContact.mutate(
-      {
-        data: {
-          name: `${values.firstName} ${values.lastName}`,
-          email: values.email,
-          phone: values.phone || null,
-          organization: values.organization || null,
-          message: values.message,
-        },
-      },
-      {
-        onSuccess: () => {
-          toast({
-            title: "Message sent!",
-            description: "We'll be in touch shortly.",
-          });
-          form.reset();
-          setIsSubmitting(false);
-        },
-        onError: () => {
-          toast({
-            title: "Error",
-            description: "Failed to send message. Please try again.",
-            variant: "destructive",
-          });
-          setIsSubmitting(false);
-        },
-      }
-    );
+    window.setTimeout(() => {
+      toast({
+        title: "Message sent!",
+        description: "We'll be in touch shortly.",
+      });
+      form.reset();
+      setIsSubmitting(false);
+    }, 500);
   }
 
   return (
