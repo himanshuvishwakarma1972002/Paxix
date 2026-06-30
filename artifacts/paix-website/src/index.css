@@ -3,6 +3,22 @@
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* GPU-composite layers for animated elements */
+[data-motion] {
+  will-change: transform, opacity;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

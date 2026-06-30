@@ -12,10 +12,10 @@ import { Link } from "wouter";
 import { ContactCTA } from "@/components/layout/ContactCTA";
 
 const fadeUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 12 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.27, ease: [0.22, 1, 0.36, 1] },
 };
 
 export default function RevenueCycle() {
@@ -37,7 +37,7 @@ export default function RevenueCycle() {
                 Revenue Cycle Management
               </motion.div>
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1]"
@@ -50,7 +50,7 @@ export default function RevenueCycle() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">recovered cash.</span>
               </motion.h1>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="text-lg text-muted-foreground mb-10 max-w-xl leading-relaxed"
@@ -58,7 +58,7 @@ export default function RevenueCycle() {
                 Transform everyday revenue leaks from process gaps into predictable cash. PAIX orchestrates your entire revenue cycle, automates manual work, flags coding risks before submission, and turns denial firefighting into scalable recovery.
               </motion.p>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
@@ -77,7 +77,7 @@ export default function RevenueCycle() {
 
             {/* Stats panel */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               className="hidden lg:block"

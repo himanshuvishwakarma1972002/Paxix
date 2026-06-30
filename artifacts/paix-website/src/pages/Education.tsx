@@ -7,10 +7,10 @@ import { Link } from "wouter";
 import { ContactCTA } from "@/components/layout/ContactCTA";
 
 const fadeUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 12 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.27, ease: [0.22, 1, 0.36, 1] },
 };
 
 export default function Education() {
@@ -32,7 +32,7 @@ export default function Education() {
                 Healthcare Education & Training
               </motion.div>
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1]"
@@ -44,7 +44,7 @@ export default function Education() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Training</span>
               </motion.h1>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="text-lg text-muted-foreground mb-10 max-w-xl leading-relaxed"
@@ -52,7 +52,7 @@ export default function Education() {
                 Comprehensive training programs designed to enhance skills, ensure compliance, and drive excellence in healthcare operations.
               </motion.p>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 className="flex flex-wrap gap-4"
@@ -70,7 +70,7 @@ export default function Education() {
             </div>
             {/* Right highlight */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.35, duration: 0.6 }}
               className="hidden lg:grid grid-cols-2 gap-4"

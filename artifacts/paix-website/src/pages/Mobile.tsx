@@ -7,10 +7,10 @@ import { Link } from "wouter";
 import { ContactCTA } from "@/components/layout/ContactCTA";
 
 const fadeUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 12 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.27, ease: [0.22, 1, 0.36, 1] },
 };
 
 const providerFeatures = [
@@ -52,7 +52,7 @@ export default function Mobile() {
                 Mobile Healthcare Platform
               </motion.div>
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1]"
@@ -64,7 +64,7 @@ export default function Mobile() {
                 <span className="text-foreground">for continuous care</span>
               </motion.h1>
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="text-lg text-muted-foreground mb-10 max-w-xl leading-relaxed"
@@ -72,7 +72,7 @@ export default function Mobile() {
                 Give patients and providers intuitive mobile tools to schedule, communicate, and access care from anywhere, reducing friction and keeping every step of the care journey connected.
               </motion.p>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
@@ -90,7 +90,7 @@ export default function Mobile() {
 
             {/* Right quick features */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.35, duration: 0.6 }}
               className="hidden lg:block"

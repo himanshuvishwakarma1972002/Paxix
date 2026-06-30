@@ -5,24 +5,24 @@ import { Target, Users, Puzzle, Handshake, ShieldAlert } from "lucide-react";
 import { ContactCTA } from "@/components/layout/ContactCTA";
 
 const fadeUp = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 14 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.55 },
+  transition: { duration: 0.27 },
 };
 
 const fadeLeft = {
-  initial: { opacity: 0, x: -30 },
+  initial: { opacity: 0, x: -16 },
   whileInView: { opacity: 1, x: 0 },
   viewport: { once: true },
-  transition: { duration: 0.55 },
+  transition: { duration: 0.27 },
 };
 
 const fadeRight = {
-  initial: { opacity: 0, x: 30 },
+  initial: { opacity: 0, x: 16 },
   whileInView: { opacity: 1, x: 0 },
   viewport: { once: true },
-  transition: { duration: 0.55 },
+  transition: { duration: 0.27 },
 };
 
 const values = [
@@ -61,7 +61,7 @@ function AboutHeroBg() {
             fill="none"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: i * 0.15, ease: "easeOut" }}
+            transition={{ duration: 1.2, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: "320px 260px" }}
           />
         ))}
@@ -141,7 +141,7 @@ export default function About() {
               Our Story
             </motion.div>
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.05]"
@@ -152,7 +152,7 @@ export default function About() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d4ff] to-[#0066ff]">Flow</span>
             </motion.h1>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl"
@@ -224,7 +224,7 @@ export default function About() {
               <motion.div
                 key={i}
                 {...fadeUp}
-                transition={{ duration: 0.55, delay: i * 0.15 }}
+                transition={{ duration: 0.27, delay: i * 0.08 }}
                 className="bg-card/50 border border-border p-8 rounded-2xl relative overflow-hidden hover:border-primary/40 hover:bg-card transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="text-7xl font-bold text-primary/8 absolute top-2 right-4 select-none">{step.num}</div>
@@ -246,10 +246,10 @@ export default function About() {
             {values.map((v, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }}
               >
                 <Card className="h-full bg-background border-border hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 group cursor-default">
                   <CardContent className="p-8">
@@ -277,19 +277,19 @@ export default function About() {
           <div className="max-w-4xl mx-auto">
             <motion.h2 {...fadeUp} className="text-3xl md:text-5xl font-bold mb-8">Our Vision for Hospitals</motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: 0.06 }}
               className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-12"
             >
               We believe the future belongs to hospitals where complexity becomes clarity and friction becomes flow. Where intelligent systems and human brilliance amplify each other. Where clinicians spend their time on what matters — patient care. Where operations flow effortlessly, revenue is predictable, and capacity exists for growth and mission.
             </motion.p>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
               className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400"
             >
               That's the hospital we're building toward. That's the future PAIX makes possible.

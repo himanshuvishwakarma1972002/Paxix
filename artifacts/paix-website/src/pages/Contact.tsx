@@ -91,7 +91,7 @@ export default function Contact() {
             
             {/* Form Side */}
             <motion.div 
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -14 }}
               animate={{ opacity: 1, x: 0 }}
               className="bg-card border border-border p-8 rounded-2xl shadow-xl"
             >
@@ -197,7 +197,7 @@ export default function Contact() {
 
             {/* Info Side */}
             <motion.div 
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 14 }}
               animate={{ opacity: 1, x: 0 }}
               className="space-y-12"
             >

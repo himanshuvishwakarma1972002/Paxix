@@ -216,7 +216,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-8"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
@@ -224,9 +224,9 @@ export default function Home() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: 0.06 }}
               className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] mb-6"
             >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00d4ff] via-[#0099ff] to-[#4466ff]">Intelligence</span>{" "}
@@ -237,18 +237,18 @@ export default function Home() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
               className="text-base md:text-lg text-muted-foreground mb-10 max-w-xl leading-relaxed"
             >
               Hospitals rely on people, processes, and systems that are constantly challenged to stay in sync. PAIX brings them together with hospital-grade intelligence, turning operational complexity into time, revenue, and capacity so teams can focus on better care.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
               className="flex flex-wrap gap-4"
             >
               <Link href="/contact">
@@ -283,10 +283,10 @@ export default function Home() {
             {stats.map((stat, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }}
                 className="text-center relative"
               >
                 {i !== stats.length - 1 && (
@@ -305,7 +305,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div 
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -14 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="group"
@@ -332,7 +332,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 14 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="group"
@@ -381,10 +381,10 @@ export default function Home() {
             ].map((challenge, i) => (
               <motion.div 
                 key={i} 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }}
                 className="bg-background border border-border p-8 rounded-2xl hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-lg"
               >
                 <challenge.icon className="w-10 h-10 text-primary mb-6" />
@@ -497,10 +497,10 @@ export default function Home() {
             ].map((service, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1], delay: i * 0.05 }}
               >
                 <Card className="h-full bg-background border-border hover:border-primary/50 transition-colors">
                   <CardHeader>
@@ -632,7 +632,7 @@ export default function Home() {
       <section className="py-24 bg-card border-t border-border">
         <div className="container mx-auto px-4 text-center">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold mb-12"
